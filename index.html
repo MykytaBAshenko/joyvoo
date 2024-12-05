@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand poppins-black" href="index.html">JOYVOO</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link " href="/games.html">GAMES</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contacts.html">CONTACTS</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="start-section">
+        <div class="background-image"></div>
+        <video class="background-video" autoplay loop muted>
+            <source src="./assets/Video_Website_Grad_2.mp4" type="video/mp4">
+        </video>
+        <div class="background-layer"></div>
+
+        <div class="start-section-container">
+            <div class="container">
+                <div class="container-title">
+                    <span>WE</span></br>
+                    <span>LOVE</span></br>
+                    <span>GAMES</span>
+                </div>
+                <div class="container-about">
+                    <h2>Welcome to Joyvoo – Games That Spark Joy!</h2>
+                    At Joyvoo, we believe games should be more than just something to pass the time. They should make
+                    you smile,
+                    connect you with others, and give you a little escape from the everyday.
+                    That’s why we pour our hearts into creating games that you’ll truly love.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="white-section">
+        <div class="container">
+            <div class="white-section-container">
+                <div class="white-section-container-meta container-meta">
+                    <h1>
+                        Welcome to Your Gaming Adventure</h1>
+                        <p>
+                            Join millions of players who call Joyvoo their favorite gaming destination. From humble beginnings to global success, we’ve created hits like Slot Bonanza and Bonanza Party. But this is just the start. Our bold vision blends creativity and a player-first approach to deliver games that surprise, delight, and keep you coming back. Wherever you are, you’re part of the Joyvoo family, united by a passion for gaming.                        </p>
+                </div>
+                <a href="#">
+
+                <img src="assets/images_gif.gif" alt="">
+</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pink-section">
+        <div class="container">
+            <div class="pink-section-container">
+                
+                <div class="slider">
+                    <div class="slides">
+                        <img  src="assets/bp/4.png" alt="Image 4">
+                        <img src="assets/bp/1.png" alt="Image 1">
+                        <img src="assets/bp/2.png" alt="Image 2">
+                        <img src="assets/bp/3.png" alt="Image 3">
+                    </div>
+                  
+                    <!-- Left and Right Clickable Zones -->
+                    <div class="slider-nav left"></div>
+                    <div class="slider-nav right"></div>
+                  </div>
+<div class="pink-section-container-meta container-meta">
+    <h1>The Joyvoo Vision</h1>
+        <p>
+            Behind every Joyvoo game is a passionate team of creators and innovators dedicated to delivering exceptional experiences. Each project is a labor of love, designed to bring you joy and excitement. Looking ahead, we’re constantly exploring new ideas to make our games even more engaging and fun. The future is bright—stay tuned for what’s next!.                        </p>
+</div>
+            </div>
+        </div>
+    </section>
+    <script>
+  const slider = document.querySelector('.slider');
+const slides = document.querySelector('.slides');
+const slideCount = document.querySelectorAll('.slides img')
+
+let currentSlide = 0;
+
+// Update slide position based on index
+function updateSlidePosition() {
+    for (let l = 0; l < slideCount.length; l++) {
+        slideCount[l].style = "opacity: 0;"
+    }
+    slideCount[currentSlide].style =  "opacity: 1;"
+}
+updateSlidePosition()
+// Move to the next slide
+function nextSlide() {
+    console.log(currentSlide)
+  currentSlide = (currentSlide + 1) % slideCount.length; // Loop back to first slide
+  updateSlidePosition();
+}
+
+// Move to the previous slide
+function prevSlide() {
+  currentSlide = (currentSlide - 1 + slideCount.length) % slideCount.length; // Loop back to last slide
+  updateSlidePosition();
+}
+
+// Add click event listeners to the navigation zones
+document.querySelector('.left').addEventListener('click', prevSlide);
+document.querySelector('.right').addEventListener('click', nextSlide);
+
+// Auto slide every 4 seconds
+setInterval(nextSlide, 3000);
+    </script>
+<footer>
+    <div class="footer-body container">
+      <a class="poppins-black" href="#">JOYVOO</a>
+  
+      <div class="footer-body-links">
+        <div class="footer-body-links-l">
+            <a href="/games.html" class="text-dark text-decoration-none">Games</a>
+            <a href="/contacts.html" class="text-dark text-decoration-none">Contacts</a>
+        </div>
+        <div class="footer-body-links-i">
+            <a href="#" class="text-dark "><i class="bi bi-linkedin fs-4"></i></a>
+            <a href="#" class="text-dark"><i class="bi bi-instagram fs-4"></i></a>
+            <a href="#" class="text-dark"><i class="bi bi-apple fs-4"></i></a>
+            <a href="#" class="text-dark"><i class="bi bi-google-play fs-4"></i></a>
+        </div>
+    </div>
+    </div>
+  
+    <!-- Bottom Section with Dark Background -->
+    <div class="footer-rights">
+      All rights reserved © 2024 JOYVOO
+    </div>
+  </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</body>
+
+</html>
+
+    <!-- <section class="game-pallet-section">
+        <div class="container">
+            <h1>OUR GAMES</h1>
+            <div class="pallet">
+                <div class="pallet-main">
+                    <div class="pallet-item">
+
+                        <video class="pallet-item-video" autoplay loop muted>
+                            <source src="./assets/vikings.mp4" type="video/mp4">
+                        </video>
+                        <div class="pallet-item-background-layer"></div>
+
+                        <div class="pallet-item-body">
+                            <div class="pallet-item-header">
+                                <img class="pallet-item-icon" src="./assets/vikingslogo.webp" />
+                                <div class="pallet-item-title">
+                                    Lucky Buddies
+                                </div>
+                            </div>
+                            <div class="pallet-item-description">
+                                Welcome to Lucky Buddies - the ultimate game of luck and strategy!
+
+Join them in their fight against the evil Pi-rats, help them free the dragons and take back the treasure!
+
+In Lucky Buddies the more, the merrier! Unlock a wide variety of Buddies, each with their unique powers, to help you on your journey to victory: Fight the Pi-Rats, win the Clan Wars, beat the Rat Race and climb the leaderboard to become the ultimate leader by strategizing your moves and using your Buddies' powers to your advantage.
+
+                            </div>
+                            <div class="pallet-item-actions">
+                                <a href="#">
+                                    <img src="assets/google.webp" alt="">
+                                </a>
+                                <a href="#">
+                                    <img src="assets/apple-p.svg" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pallet-other">
+                    <div class="pallet-other-main">
+
+                    </div>
+                    <div class="pallet-other-minor">
+                        <div class="pallet-other-minor-left">
+                            left
+                        </div>
+                        <div class="pallet-other-minor-right">
+                            right
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section> -->
