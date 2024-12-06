@@ -450,6 +450,7 @@ body {
     max-width: auto;
     height: 100%;
     width: 100%;
+    transition: 0.5s;
     object-fit: cover; /* Ensures content fills the container */
     object-position: center;
     
@@ -1040,4 +1041,34 @@ position: relative;
   }
 
   .game-sheet-item-content-slider{
+  }
+  #popup-carousel-layer{
+    width: 100%;
+    z-index: 99;
+    position: absolute;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 67, 119,0.8) 20%, rgba(255, 67, 119,0.4) 100%);
+  }
+
+  #popup-carousel{
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 100;
+    position: fixed;
+  }
+  #popup-carousel-content{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  #popup-carousel-content>*{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 80vh;
+    z-index: 100;
+
+    max-width: 80vw;
   }
