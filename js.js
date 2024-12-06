@@ -78,10 +78,9 @@ function updateSlidePosition() {
     }
     slideCount[currentSlide].style =  "opacity: 1;"
 }
-updateSlidePosition()
+
 // Move to the next slide
 function nextSlide() {
-    console.log(currentSlide)
   currentSlide = (currentSlide + 1) % slideCount.length; // Loop back to first slide
   updateSlidePosition();
 }
@@ -93,14 +92,21 @@ function prevSlide() {
 }
 
 // Add click event listeners to the navigation zones
-document.querySelector('.left').addEventListener('click', prevSlide);
-document.querySelector('.right').addEventListener('click', nextSlide);
+
 
 // Auto slide every 4 seconds
+if (slideCount.length) {
+    
 setInterval(nextSlide, 3000);
-
+updateSlidePosition()
+document.querySelector('.left').addEventListener('click', prevSlide);
+document.querySelector('.right').addEventListener('click', nextSlide);
+}
 
 const currentYear = new Date().getFullYear();
 
 // Update the content of the element with id 'year'
-document.getElementById('year').textContent = currentYear;
+let y = document.getElementById('year')
+if (y) {
+    y.textContent = currentYear;
+}
