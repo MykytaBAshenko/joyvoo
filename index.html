@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link " href="/games.html">GAMES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contacts.html">CONTACT US</a></li>
+                    <li class="nav-item"><a class="nav-link contact-us" >CONTACT US</a></li>
                 </ul>
             </div>
         </div>
@@ -108,47 +108,12 @@ That’s why we pour our hearts into creating games that you’ll truly love. </
             <a class="game-link" href="/games.html">
                 Discover Our Games
             </a>
-            <a class="contact-btn">
+            <a class="contact-btn contact-us">
                 Contact Us
             </a>
         </div>
     </div>
 </section>
-    <script>
-  const slider = document.querySelector('.slider');
-const slides = document.querySelector('.slides');
-const slideCount = document.querySelectorAll('.slides img')
-
-let currentSlide = 0;
-
-// Update slide position based on index
-function updateSlidePosition() {
-    for (let l = 0; l < slideCount.length; l++) {
-        slideCount[l].style = "opacity: 0;"
-    }
-    slideCount[currentSlide].style =  "opacity: 1;"
-}
-updateSlidePosition()
-// Move to the next slide
-function nextSlide() {
-    console.log(currentSlide)
-  currentSlide = (currentSlide + 1) % slideCount.length; // Loop back to first slide
-  updateSlidePosition();
-}
-
-// Move to the previous slide
-function prevSlide() {
-  currentSlide = (currentSlide - 1 + slideCount.length) % slideCount.length; // Loop back to last slide
-  updateSlidePosition();
-}
-
-// Add click event listeners to the navigation zones
-document.querySelector('.left').addEventListener('click', prevSlide);
-document.querySelector('.right').addEventListener('click', nextSlide);
-
-// Auto slide every 4 seconds
-setInterval(nextSlide, 3000);
-    </script>
 <footer class="footer">
     <div class="footer-body container">
       <a class="poppins-white" href="#">JOYVOO</a>
@@ -156,7 +121,7 @@ setInterval(nextSlide, 3000);
       <div class="footer-body-links">
         <div class="footer-body-links-l">
             <a href="/games.html" class="text-decoration-none">Games</a>
-            <a  class="text-decoration-none contact-us">Contact us</a>
+            <a class="text-decoration-none contact-us">Contact us</a>
         </div>
         <div class="footer-body-links-i">
             <a href="#"><i class="bi bi-linkedin fs-4"></i></a>
@@ -169,16 +134,17 @@ setInterval(nextSlide, 3000);
   
     <!-- Bottom Section with Dark Background -->
     <div class="footer-rights">
-      All rights reserved © 2024 JOYVOO
-    </div>
+        All rights reserved © <span id="year"></span> JOYVOO
+      </div>
   </footer>
 
   <div class="contact-us-popup">
 
     <section class="section-form">
-        <div class="contact-us-popup-layer">
+        <div class="contact-us-popup-layer close-popup">
         </div>
             <form id="custom-email-form" action="" method="POST">
+                <i class="bi bi-x close-icon close-popup"></i>
                     <input type="text" id="name" name="name" placeholder="Name" required>
                     <input placeholder="Email" type="email" id="email" name="email" required>
                     <textarea id="message" name="message" placeholder="Message" required></textarea>
@@ -194,9 +160,37 @@ setInterval(nextSlide, 3000);
             </form>
     </section>
   </div>
+    <script src="./js.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </body>
+<!-- 
+<script>
+
+    const closeButtons = document.querySelectorAll('.contact-us');
+    
+    // Add an 'onclick' event to each element
+    closeButtons.forEach(button => {
+      button.onclick = () => {
+        const contactBtn = document.querySelectorAll('.contact-us-popup');
+        contactBtn[0].style="display: block;"
+        const body = document.querySelectorAll('html');
+        body[0].style="overflow: hidden;"
+      };
+    });
+
+    const closePopup = document.querySelectorAll('.close-popup');
+    
+    // Add an 'onclick' event to each element
+    closePopup.forEach(c => {
+      c.onclick = () => {
+        const contactBtn = document.querySelectorAll('.contact-us-popup');
+        contactBtn[0].style="display: none;"
+        const body = document.querySelectorAll('html');
+        body[0].style=" overflow-x: hidden; "
+      };
+    });
+    </script>
 <script>
     document.getElementById('captcha-section').style = "display:none;"
 document.getElementById('custom-email-form').addEventListener('submit', function(event) {
@@ -232,7 +226,7 @@ document.getElementById('custom-email-form').addEventListener('submit', function
     })
     
 });
-</script>
+</script> -->
 </html>
 
     <!-- <section class="game-pallet-section">
@@ -266,7 +260,11 @@ In Lucky Buddies the more, the merrier! Unlock a wide variety of Buddies, each w
                                 <a href="#">
                                     <img src="assets/google.webp" alt="">
                                 </a>
-                                <a href="#">
+                                <a href="#">.navbar-toggler {
+    border: 2px solid var(--global-pink);
+    border-radius: 0;
+    color: var(--global-pink);
+}
                                     <img src="assets/apple-p.svg" alt="">
                                 </a>
                             </div>
