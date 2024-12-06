@@ -128,41 +128,7 @@ let’s explore how we can work together.
 </section>
 
 <script>
-document.getElementById('captcha-section').style = "display:none;"
-document.getElementById('custom-email-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
 
-    const formData = new FormData(this); // Collect form data
-
-    // Add nonce to the request for security
-    formData.append('action', 'submit_custom_form'); // Define the action
-    formData.append('nonce', '<?php echo wp_create_nonce("custom_form_nonce"); ?>');
-    document.getElementById('submit-button').style = "display:none;"
-    document.getElementById('captcha-section').style = "display:grid;"
-    document.getElementById('not-robot').addEventListener('click', function(event) {
-            // event.preventDefault(); // Prevent default form submission
-            if (document.getElementById('not-robot').checked) {
-                fetch('<?php echo admin_url("admin-ajax.php"); ?>', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('success-send').style = "display: grid;"
-                    if (data.success) {
-                        alert(data.data.message);
-                    } else {
-                        alert(data.data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An unexpected error occurred.');
-                });
-            }
-    })
-    
-});
 
 // function validateCaptcha() {
 //     const checkbox = document.getElementById('not-robot');
