@@ -416,6 +416,16 @@ body {
 
 .game-sheet-section {
     background-color: white;
+    padding: 100px 0 100px;
+}
+
+.game-sheet-title{
+    font-size: 50px;
+    font-weight: 700;
+    padding-bottom: 30px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--global-pink);
 }
 
 .game-sheet-item-content,
@@ -540,7 +550,6 @@ position: relative;
 } */
 
 .game-sheet {
-    padding: 100px 0 100px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
@@ -615,9 +624,8 @@ position: relative;
 
 .game-sheet-item-actions {
     justify-self: end;
-    display: grid;
+    display: flex;
     gap: 20px;
-    grid-template-columns: 1fr 1fr;
 
 }
 .game-sheet-item-actions a img{
@@ -957,6 +965,27 @@ position: relative;
     z-index: 101;
 }
 
+.other-section-button button{
+    border: 2px solid var(--global-pink);
+    background-color: var(--global-pink);
+    color: white;
+    font-size: 40px;
+    padding: 10px 40px;
+    font-weight: 700;
+    transition: 1s;
+}
+
+.other-section-button button:hover{
+    background-color: white;
+    color: var(--global-pink);
+}
+.other-section-button{
+    padding: 50px;
+    display: grid;
+    justify-content: center;
+
+    align-content: center;
+}
 
 
 
@@ -1138,4 +1167,8 @@ position: relative;
 #rightClick:hover{
     opacity: 1;
     cursor: pointer;
+}
+
+#other-game-sheet{
+    display: none;
 }
