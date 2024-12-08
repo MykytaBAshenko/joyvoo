@@ -40,16 +40,16 @@ html, body {
 .close-icon{
     position: absolute;
     right: 0;
-    font-size: 55px;
-    height: 60px;
-    width: 60px;
+    font-size: 75px;
+    height: 70px;
+    width: 70px;
     display: grid;
     justify-items: center;
     align-items: center;
     top: 0;
     cursor: pointer;
     color: white;
-    transform: translate(60px, -60px);
+    transform: translate(70px, -70px);
 }
 .close-icon:hover{
     opacity: 0.7;
@@ -426,7 +426,7 @@ body {
 }
 
 .game-sheet-item-content-action .game-sheet-item-content-action-container-shadow{
-    background: radial-gradient(circle, transparent 20%, var(--global-pink) 100%);
+    background: radial-gradient(circle, transparent 10%, var(--global-pink) 100%);
     z-index: 15;
     position: absolute;
     top: 0;
@@ -438,6 +438,37 @@ body {
     transition: 1s;
     cursor: pointer;
 
+}
+
+
+.game-sheet-item-content-action .play-button{
+    z-index: 16;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--global-pink);
+    font-size: 140px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    height: 140px;
+    width: 140px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+
+.game-sheet-item-content-action:hover .play-button{
+    color: white;
+    transition: 1s;
+
+}
+
+
+.game-sheet-item:hover .game-sheet-item-content-action .play-button{
+    opacity: 1;
 }
 
 .game-sheet-item-content-action:hover .game-sheet-item-content-action-container-shadow{
@@ -453,7 +484,6 @@ body {
     transition: 0.5s;
     object-fit: cover; /* Ensures content fills the container */
     object-position: center;
-    
 }
 .game-sheet-item-content .game-sheet-item-content-logo{
     height: 230px;
@@ -1057,18 +1087,55 @@ position: relative;
     z-index: 100;
     position: fixed;
   }
-  #popup-carousel-content{
-    position: absolute;
-    width: 100%;
+  #popup-carousel-content-shell{
+    display: grid;
+    justify-content: center;
     height: 100%;
+    align-items: center;
   }
-  #popup-carousel-content>*{
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-height: 80vh;
-    z-index: 100;
-
+  #popup-carousel-content{
+    position: relative;
+    z-index: 10000;
+  }
+  #popup-carousel-content img,
+  #popup-carousel-content video
+  {
     max-width: 80vw;
+    max-height: 80vh;
+    
   }
+
+  #rightClick{
+    position: absolute;
+    z-index: 999;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 67, 119, 1));
+    opacity: 0;
+    transition: 1s;
+
+}
+
+
+#leftClick{
+    position: absolute;
+    z-index: 999;
+    width: 50%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition: 1s;
+   /* background: radial-gradient(circle at 0% 50%, transparent 50%, rgba(255, 67, 119, 1) 100%); */
+   background: linear-gradient(to right, rgba(255, 67, 119, 1), transparent);
+
+}
+#leftClick:hover, 
+#rightClick:hover{
+    opacity: 1;
+    cursor: pointer;
+}

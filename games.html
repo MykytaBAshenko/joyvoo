@@ -72,6 +72,7 @@
                                     <source src="./assets/vikings.mp4" type="video/mp4">
                                 </video>
                             </div>
+                            <i class="bi bi-play-fill play-button"></i>
                         </div>
                         <img class="game-sheet-item-content-logo" src="assets/vikingslogo.webp" alt="">
                     </div>
@@ -116,6 +117,7 @@
                                     <source src="./assets/vikings.mp4" type="video/mp4">
                                 </video> -->
                             </div>
+                            <i class="bi bi-play-fill play-button"></i>
                         </div>
                         <img class="game-sheet-item-content-logo" src="assets/vikingslogo.webp" alt="">
                     </div>
@@ -260,16 +262,20 @@
     <div id="popup-carousel">
         <div id="popup-carousel-layer">
         </div>
-        <div id="popup-carousel-content">
-            
-            <!-- <img src="/assets/lb/1.webp" alt="">
-            <img src="/assets/lb/2.webp" alt="">
-            <img src="/assets/lb/3.webp" alt="">
-            <img src="/assets/lb/4.webp" alt="">
-            <video autoplay loop muted>
-                <source src="./assets/vikings.mp4" type="video/mp4">
-            </video> -->
+        <div id="popup-carousel-content-shell">
+
+            <div id="popup-carousel-content">
+                
+                <!-- <img src="/assets/lb/1.webp" alt="">
+                <img src="/assets/lb/2.webp" alt="">
+                <img src="/assets/lb/3.webp" alt="">
+                <img src="/assets/lb/4.webp" alt="">
+                <video autoplay loop muted>
+                    <source src="./assets/vikings.mp4" type="video/mp4">
+                </video> -->
+            </div>
         </div>
+
     </div>
 
 
@@ -288,18 +294,93 @@
                     clone.style = "opacity: 1;"
                     newContent.appendChild(clone); 
                 });
+                const workArray = Array.from(newContent.children)
+ 
+                let leftClick = document.createElement("div")
+                let rightClick = document.createElement("div")
+                leftClick.id = "leftClick"
+                rightClick.id = "rightClick"
+                newContent.appendChild(leftClick); 
+                newContent.appendChild(rightClick);
+                let icon = document.createElement("i")
+                // <i class="bi bi-x close-icon close-popup"></i>
+                icon.classList = "bi bi-x close-icon"
+                icon.id = "close-icon-popup"
+                newContent.appendChild(icon)
+                
+                let currentIndex = workArray.length - 1;
+                const initSlider = () => {
+                    for (let i = 0; i < workArray.length; i++) {
+                        workArray[i].style = "display:none;"
+                        workArray[currentIndex].style = "display: block;"
+                    }
+                    if (workArray[currentIndex].tagName === "VIDEO") {
+                        workArray[currentIndex].currentTime = 0;
+                        workArray[currentIndex].muted = false;
+                        workArray[currentIndex].play()
+                    }
+                }
+                initSlider()
+                const moveBack = () => {
+                    if (workArray[currentIndex].tagName === "VIDEO") {
+                        workArray[currentIndex].muted = true;
+                        workArray[currentIndex].play()
+                    }
+                    workArray[currentIndex--].style = "display: none;"
+                    if (currentIndex < 0) {
+                        currentIndex = workArray.length - 1;
+                    }
+                    workArray[currentIndex].style = "display: block;"
+                    if (workArray[currentIndex].tagName === "VIDEO") {
+                        workArray[currentIndex].currentTime = 0;
+                        workArray[currentIndex].muted = false;
+                        workArray[currentIndex].play()
+                        
+                    }
+                }
+
+                const moveForward = () => {
+                    if (workArray[currentIndex].tagName === "VIDEO") {
+                        workArray[currentIndex].muted = true;
+                        workArray[currentIndex].play()
+                    }
+                    workArray[currentIndex++].style = "display: none;"
+                    if (currentIndex > workArray.length-1) {
+                        currentIndex = 0;
+                    }
+                    workArray[currentIndex].style = "display: block;"
+                    if (workArray[currentIndex].tagName === "VIDEO") {
+                        workArray[currentIndex].currentTime = 0;
+                        workArray[currentIndex].muted = false;
+                        workArray[currentIndex].play()
+                    }
+                }
+
+                leftClick.addEventListener('click', function() {
+                    moveForward()
+                })
+
+                rightClick.addEventListener('click', function() {
+                    moveBack()
+                })
+
+                const closeSlice = () => {
+                    const body = document.querySelectorAll('html');
+                    body[0].style=" overflow-x: hidden; "
+                    const popup = document.getElementById('popup-carousel');
+                    popup.style = "display: none;"
+                    const newContent = document.getElementById('popup-carousel-content');
+                    newContent.innerHTML = ""
+                }
+
+                document.getElementById('popup-carousel-layer').addEventListener('click', closeSlice)
+                icon.addEventListener('click', closeSlice)
+
             });
         });
         console.log(document.getElementById('popup-carousel-layer'))
 
-        document.getElementById('popup-carousel-layer').addEventListener('click', function(event) {
-            const body = document.querySelectorAll('html');
-            body[0].style=" overflow-x: hidden; "
-            const popup = document.getElementById('popup-carousel');
-            popup.style = "display: none;"
-            const newContent = document.getElementById('popup-carousel-content');
-            newContent.innerHTML = ""
-        })
+        
         const slidersItems = document.querySelectorAll('.game-sheet-item-content-action-container');
         slidersItems.forEach((item, index) => {
             function initSlides() {
@@ -314,6 +395,7 @@
                     }
                 });
                 if (doSlider) {
+                    moveSlides()
                     setInterval(moveSlides, 3000);
                 }
             }
