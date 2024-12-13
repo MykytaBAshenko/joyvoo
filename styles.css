@@ -37,6 +37,9 @@ html, body {
     margin: 0; /* Avoid unwanted margins */
     padding: 0;
   }
+  p{
+    text-align: justify;
+  }
 .close-icon{
     position: absolute;
     right: 0;
@@ -163,6 +166,13 @@ body {
     font-size: 20px;
     color: var(--global-pink);
 
+}
+
+.navbar-toggler:hover {
+    text-decoration: none;
+    outline: 0;
+    box-shadow: 0 0 0 var(--global-pink) !important;
+    border-color: var(--global-pink);
 }
 
 .navbar li .nav-link:hover{
@@ -640,7 +650,7 @@ position: relative;
 
 }
 .game-sheet-item-actions a img{
-    height: 40px;
+    height: 35px;
 }
 
 .game-sheet-item-actions a:hover img{
@@ -826,7 +836,6 @@ position: relative;
 .section-form form{
     background-color: white;
     display: flex;
-    /* min-width: 800px; */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -835,6 +844,7 @@ position: relative;
     max-width: 700px;
     top: 50%;
     left: 50%;
+    margin: 10px;
     transform: translate(-50%, -50%);
     gap: 20px;
     justify-content: center;
@@ -989,31 +999,6 @@ position: relative;
     transform: translate(-50%, -50%);
     z-index: 101;
 }
-
-.other-section-button button{
-    border: 2px solid var(--global-pink);
-    background-color: var(--global-pink);
-    color: white;
-    font-size: 40px;
-    padding: 10px 40px;
-    font-weight: 700;
-    transition: 1s;
-}
-
-.other-section-button button:hover{
-    background-color: white;
-    color: var(--global-pink);
-}
-.other-section-button{
-    padding: 50px;
-    display: grid;
-    justify-content: center;
-
-    align-content: center;
-}
-
-
-
 
 
 
@@ -1244,3 +1229,290 @@ position: relative;
 #other-game-sheet{
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1400px) {
+    .other-sheet{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .other-sheet{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+@media (max-width: 1200px) {
+    .slider{
+        width: 400px;
+        height: 200px;
+    }
+    .pink-section-container{
+        gap:50px;
+    }
+    .game-sheet{
+        grid-template-columns: 1fr;
+    }
+    .game-sheet-item-actions a img{
+        height: 40px;
+    }
+}
+
+
+
+@media (max-width: 1000px) {
+    .white-section-container{
+        grid-template-columns: 1fr;
+        gap: 50px;
+        align-items: center;
+        justify-content: center;
+        place-items: center;
+    }
+    .start-section-container .container{
+        grid-template-columns: 1fr;
+        place-items: center;
+        align-items: center;
+
+    }
+    .start-section-container .container .container-title {
+        font-size: 40px;
+        justify-self: center;
+        text-align: center;
+        padding: 20px;
+    }
+    .start-section-container .container .container-title  br{
+        display: none;
+    }
+    .start-section{
+        min-height: 300px;
+    }
+    .background-image{
+        min-height: 400px;
+    }
+    .container-about h1 {
+        padding-bottom: 0;
+        text-align: center;
+    }
+    .container-about{
+        align-self: center;
+    justify-self: center;
+    padding-bottom: 0;
+
+    }
+    .pink-section-container{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .action-buttons> *{
+        width: auto;
+
+    }
+    .close-icon{
+        transform: translate(15px , -70px);
+    }
+    .section-form form{
+       
+        max-width: 90%;
+        margin: 5px;
+    }
+  }
+  
+
+@media (max-width: 800px) {
+    .action-buttons{
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .action-buttons .game-link {
+        justify-self: center;
+    }
+
+    .action-buttons .contact-btn {
+        justify-self: center;
+    }
+    .background-image{
+        min-height: 300px;
+    }
+
+    .white-section{
+        padding: 40px 0;
+    }
+    .pink-section{
+        padding: 40px 0;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .other-sheet-item-body-description{
+        font-size: 14px;
+    }
+    .game-sheet-item-description{
+        font-size: 14px;
+    }
+    .game-sheet-item-header-title{
+        font-size: 25px;
+    }
+    #popup-carousel-content img, #popup-carousel-content video {
+        max-width: 80vw;
+        max-height: 80vh;
+    }
+
+}
+
+@media (max-width: 600px) {
+    .game-sheet-item{
+        grid-template-columns: 1fr;
+        justify-content: center;
+        align-items: center;
+        place-items: center;
+        height: auto;
+
+    }
+    .game-sheet-item-content{
+        height: 180px;
+        margin: 10px;
+    }
+
+    .game-sheet-item-content-action{
+        width: 180px;
+        height: 180px;
+    }
+    .game-sheet-item-content .game-sheet-item-content-logo{
+        width: 181px;
+        height: 181px;
+    }
+    .game-sheet-item-body{
+        gap: 5px;  
+    }
+    .game-sheet-item-actions{
+        padding-top:5px ;
+    }
+}
+@media (max-width: 500px) {
+    footer .footer-body{
+        grid-template-columns: 1fr;
+        padding: 20px 0;
+    }
+    .poppins-white{
+        text-align: center;
+    }
+    .footer-body-links{
+        justify-content: center;
+        align-items: center;
+    }
+    .footer-body-links-i{
+        justify-self: center;
+    }
+    h1{
+        text-align: center;
+    }
+    .white-section-container img{
+        width: 250px;
+    }
+    .slider{
+        width: 300px;
+        height: 150px;
+    }
+    .start-section-container .container .container-title{
+        min-width: 100%;
+    }
+}
+
