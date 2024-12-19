@@ -39,7 +39,6 @@ define('WP_DEBUG_DISPLAY', false);
 
 
 function custom_form_enqueue_scripts() {
-    wp_enqueue_script('custom-form-js', get_template_directory_uri() . '/js/main.js', array('jquery'), '1.0', true);
     wp_localize_script('custom-form-js', 'customFormData', [
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('custom_form_nonce')
@@ -65,16 +64,34 @@ function handle_custom_form_submission() {
         wp_send_json_error(['message' => 'All fields are required.']);
     }
 
-    // Send email (or you could save this to the database if required)
-    $to = "nikita.bashenko2001@gmail.com"; // Send to site admin email
+    // Fetch all email addresses from the custom email sender table
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'email_sender';
+
+    $emails = get_option('email_sender_addresses', []);
+
+    if (empty($emails)) {
+        wp_send_json_error(['message' => 'No email addresses found.']);
+    }
+
+    // Send email to all retrieved emails
     $headers = ['Content-Type: text/html; charset=UTF-8'];
     $subject_line = "New Contact Form Message from: $name";
     $body = "Name: $name<br>Email: $email<br>Subject: $subject<br>Message: $message";
 
-    $mail_sent = wp_mail($to, $subject_line, $body, $headers);
+    // Loop through all emails and send the message
+    $email_sent_successfully = true;
+    foreach ($emails as $recipient) {
+        $mail_sent = wp_mail($recipient, $subject_line, $body, $headers);
+        if (!$mail_sent) {
+            $email_sent_successfully = false;
+            break; // Stop on the first failure
+        }
+    }
 
-    if ($mail_sent) {
-        wp_send_json_success(['message' => 'Your message was sent successfully!']);
+    // Response based on whether emails were sent successfully
+    if ($email_sent_successfully) {
+        wp_send_json_success(['message' => 'Your message was sent successfully to all recipients!']);
     } else {
         wp_send_json_error(['message' => 'Failed to send your message. Please try again later.']);
     }

@@ -1,7 +1,29 @@
-const closeButtons = document.querySelectorAll('.contact-us');
-    
+
+const contactUsButtons = document.querySelectorAll('.contact-us');
+const videos = document.querySelectorAll('video');
+
+videos.forEach(video => {
+  video.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    e.stopPropagation(); 
+  });
+  video.addEventListener('touchstart', (e) => e.preventDefault());
+  video.addEventListener('touchend', (e) => e.preventDefault());
+});
+
+const imgs = document.querySelectorAll('img');
+
+imgs.forEach(img => {
+  img.addEventListener('click', (e) => {
+    e.preventDefault(); 
+    e.stopPropagation(); 
+  });
+  img.addEventListener('touchstart', (e) => e.preventDefault());
+  img.addEventListener('touchend', (e) => e.preventDefault());
+});
+
 // Add an 'onclick' event to each element
-closeButtons.forEach(button => {
+contactUsButtons.forEach(button => {
   button.onclick = () => {
     const contactBtn = document.querySelectorAll('.contact-us-popup');
     contactBtn[0].style="display: block;"
@@ -13,70 +35,82 @@ closeButtons.forEach(button => {
 const closePopup = document.querySelectorAll('.close-popup');
 
 // Add an 'onclick' event to each element
-closePopup.forEach(c => {
-  c.onclick = (e) => {
-    e.preventDefault()
+const displayNonePopup = () => {
     const contactBtn = document.querySelectorAll('.contact-us-popup');
     contactBtn[0].style="display: none;"
     const body = document.querySelectorAll('html');
     body[0].style=" overflow-x: hidden; "
+}
+
+closePopup.forEach(c => {
+  c.onclick = (e) => {
+    e.preventDefault()
+    displayNonePopup()
   };
 });
 
 
-document.getElementById('captcha-section').style = "display:none;";
-
 const form = document.getElementById('custom-email-form');
 const submitButton = document.getElementById('submit-button');
-const notRobotCheckbox = document.getElementById('not-robot');
 
 form.addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); 
 
-    const formData = new FormData(form); // Collect form data
+    const formData = new FormData(form); 
 
     // Add nonce to the request for security
     formData.append('action', 'submit_custom_form'); // Define the action
     formData.append('nonce', customFormData.nonce); // Get the nonce from the localized script
+    submitButton.style = "display:none;";
 
     // Hide submit button and display captcha section
-    submitButton.style = "display:none;";
-    document.getElementById('captcha-section').style = "display:grid;";
+    // submitButton.style = "display:none;";
+    // document.getElementById('captcha-section').style = "display:grid;";
+    onSubmitWithCaptcha()
 });
 
-// Attach a one-time event listener to the "not-robot" checkbox
-notRobotCheckbox.addEventListener('change', function(event) {
-    if (notRobotCheckbox.checked) {
-        const formData = new FormData(form); // Collect form data again
-
-        formData.append('action', 'submit_custom_form'); // Define the action
-        formData.append('nonce', customFormData.nonce); // Get the nonce from the localized script
-
-        fetch(customFormData.ajax_url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.data.message);
-                document.getElementById('success-send').style.display = 'block'; // Show success message
-                form.reset(); // Reset the form after successful submission
-                document.getElementById('captcha-section').style = "display:none;";
-                submitButton.style = "display:block;"; // Re-enable the submit button
-            } else {
-                alert(data.data.message);
-                submitButton.style = "display:block;"; // Re-enable submit button
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An unexpected error occurred.');
-            submitButton.style = "display:block;"; // Re-enable submit button
-        });
+// Attach a one-time event listener to the CAPTCHA (not a checkbox anymore)
+function onSubmitWithCaptcha() {
+    // Get the reCAPTCHA token
+    const token = grecaptcha.getResponse();
+    if (!token) {
+        alert('Please complete the CAPTCHA verification.');
+        return;
     }
-});
 
+
+    const formData = new FormData(form); // Collect form data again
+    formData.append('action', 'submit_custom_form'); // Define the action
+    formData.append('nonce', customFormData.nonce); // Get the nonce from the localized script
+    formData.append('g-recaptcha-response', token); // Add the CAPTCHA token to the form data
+
+    fetch(customFormData.ajax_url, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('submit-button').style.display = 'none'
+            setTimeout(() => {
+                displayNonePopup();
+                submitButton.style = "display:block;";
+                document.getElementById('captcha-section').style = "display:grid;";
+                document.getElementById('success-send').style.display = 'none';
+                form.reset();
+                grecaptcha.reset(); // Reset reCAPTCHA so the user can submit again if needed
+            }, 3000)
+            document.getElementById('captcha-section').style = "display:none;";
+            document.getElementById('success-send').style.display = 'block';
+        } else {
+            alert(data.data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An unexpected error occurred.');
+    })
+}
 
 
 
@@ -115,7 +149,7 @@ function prevSlide() {
 // Auto slide every 4 seconds
 if (slideCount.length) {
     
-setInterval(nextSlide, 3000);
+setInterval(nextSlide, 2500);
 updateSlidePosition()
 document.querySelector('.left').addEventListener('click', prevSlide);
 document.querySelector('.right').addEventListener('click', nextSlide);
@@ -163,6 +197,7 @@ gameItems.forEach((item, index) => {
         Array.from(actionContainers[0].children).forEach((child) => {
             let clone = child.cloneNode(true)
             clone.style = "opacity: 1;"
+            console.log(newContent)
             newContent.appendChild(clone); 
         });
         const workArray = Array.from(newContent.children)
@@ -171,12 +206,18 @@ gameItems.forEach((item, index) => {
         let rightClick = document.createElement("div")
         leftClick.id = "leftClick"
         rightClick.id = "rightClick"
+        console.log(newContent)
+
         newContent.appendChild(leftClick); 
+        console.log(newContent)
+
         newContent.appendChild(rightClick);
         let icon = document.createElement("i")
         // <i class="bi bi-x close-icon close-popup"></i>
         icon.classList = "bi bi-x close-icon"
         icon.id = "close-icon-popup"
+            console.log(newContent)
+
         newContent.appendChild(icon)
         
         let currentIndex = workArray.length - 1;
@@ -192,12 +233,19 @@ gameItems.forEach((item, index) => {
             }
         }
         initSlider()
-        const moveBack = () => {
-            if (workArray[currentIndex].tagName === "VIDEO") {
-                workArray[currentIndex].muted = true;
-                workArray[currentIndex].play()
+        const muteAll = () => {
+            for(let i = 0; i < workArray.length;i++){
+                if (workArray[i]) {
+                    if (workArray[i].tagName === "VIDEO") {
+                        workArray[i].muted = true;
+                    }
+                    workArray[i].style = "display: none;"
+                }
             }
-            workArray[currentIndex--].style = "display: none;"
+        }
+        const moveBack = () => {
+            muteAll()
+            currentIndex--
             if (currentIndex < 0) {
                 currentIndex = workArray.length - 1;
             }
@@ -206,18 +254,14 @@ gameItems.forEach((item, index) => {
                 workArray[currentIndex].currentTime = 0;
                 workArray[currentIndex].muted = false;
                 workArray[currentIndex].play()
-                
             }
         }
-
+     
         const moveForward = () => {
-            if (workArray[currentIndex].tagName === "VIDEO") {
-                workArray[currentIndex].muted = true;
-                workArray[currentIndex].play()
-            }
-            workArray[currentIndex++].style = "display: none;"
-            if (currentIndex > workArray.length-1) {
-                currentIndex = 0;
+            muteAll()
+            currentIndex++
+            if (currentIndex > workArray.length - 1) {
+                currentIndex = 0; 
             }
             workArray[currentIndex].style = "display: block;"
             if (workArray[currentIndex].tagName === "VIDEO") {
@@ -241,7 +285,9 @@ gameItems.forEach((item, index) => {
             const popup = document.getElementById('popup-carousel');
             popup.style = "display: none;"
             const newContent = document.getElementById('popup-carousel-content');
-            newContent.innerHTML = ""
+            while (newContent.firstChild) {
+                newContent.removeChild(newContent.firstChild);
+            }
         }
 
         document.getElementById('popup-carousel-layer').addEventListener('click', closeSlice)
@@ -249,7 +295,6 @@ gameItems.forEach((item, index) => {
 
     });
 });
-console.log(document.getElementById('popup-carousel-layer'))
 
 
 const slidersItems = document.querySelectorAll('.game-sheet-item-content-action-container');

@@ -4,7 +4,7 @@ get_header(); // Include the header
 
 <section class="start-section">
     <div class="background-image"></div>
-    <video class="background-video" autoplay loop muted>
+    <video class="background-video" autoplay loop muted  draggable="false" playsinline>
         <!-- Using WordPress's 'get_template_directory_uri()' to correctly reference the video file -->
         <source src="<?php echo get_template_directory_uri(); ?>/assets/Video_Website_Grad_2.mp4" type="video/mp4">
     </video>
@@ -38,7 +38,7 @@ get_header(); // Include the header
             </div>
 
             <!-- Using WordPress functions to load the image -->
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images_gif.gif" alt="Journey">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images_gif.gif" playsinline controlslist="nodownload noplaybackrate nofullscreen" draggable="false" alt="Journey">
         </div>
     </div>
 </section>

@@ -21,7 +21,14 @@
     background-color: rgba(255, 67, 119, 0.7)
   }
   
-
+img, video{
+    pointer-events: none;
+    user-select: none;
+    touch-action: none;
+    -webkit-user-select: none;   /* iOS-specific user-select */
+    -webkit-touch-callout: none; /* Disables the iOS callout (like copy/paste options) */
+    object-fit: fill;            /* Makes sure the video fills its container */
+}
 body {
     position: relative;
     display: grid;
@@ -58,7 +65,7 @@ html, body {
     opacity: 0.7;
 }
 
-body > *{
+body > *:not(div){
     width: 100%;}
 
 .navbar img {
@@ -163,7 +170,8 @@ body {
     font-family: 'Oswald', sans-serif;
 }
 .navbar li .nav-link{
-    font-size: 20px;
+    font-size: 25px;
+    font-weight: 700;
     color: var(--global-pink);
 
 }
@@ -195,7 +203,6 @@ body {
 }
 
 .background-image {
-    background: url(assets/background.png) 50% 50%;
     background-size: cover;
     height: 100%;
     background-color: #FF4377;
@@ -224,7 +231,7 @@ body {
     background-color: rgba(255, 67, 119,0.9);
     font-size: 50px;
     font-weight: 700;
-
+    border-radius: 30px;
     text-align: center;
     color: white;
     padding: 40px;
@@ -265,15 +272,17 @@ body {
     display: grid;
     grid-template-columns: auto 1fr;
     height: 100%;
+    gap: 50px;
 }
 .start-section-container .container .container-title{ 
     align-self: center;
     justify-self: start;
     background-color: rgba(255, 67, 119,0.9);
-    font-size: 100px;
+    font-size: 90px;
     font-weight: 700;
     min-width: 400px;
     color: white;
+    border-radius: 30px;
     padding: 40px;
 }
 .container-about {
@@ -285,6 +294,8 @@ body {
     padding-bottom: 80px;
 }
 .container-about h1{
+    font-weight: 700;
+    font-size: 35px;
     padding-bottom: 63px;
 }
 
@@ -426,22 +437,24 @@ body {
 
 .game-sheet-section {
     background-color: white;
-    padding: 100px 0 100px;
+    padding: 40px 0;
 }
 
 .game-sheet-title{
     font-size: 50px;
     font-weight: 700;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
     text-transform: uppercase;
     text-align: center;
+    line-height: 45px;
     color: var(--global-pink);
 }
 
 .game-sheet-title.other{
     font-size: 50px;
+    line-height: 45px;
     font-weight: 700;
-    padding: 30px;
+    padding: 40px;
     text-transform: uppercase;
     text-align: center;
     color: var(--global-pink);
@@ -451,7 +464,7 @@ body {
 .game-sheet-item-content-action-container{
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 40px;
 }
 
 .game-sheet-item-content-action .game-sheet-item-content-action-container-shadow{
@@ -461,7 +474,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 40px;
     height: 100%;
     opacity: 0;
     transition: 1s;
@@ -571,21 +584,61 @@ position: relative;
 .game-sheet {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    gap: 50px;
 }
 
 .game-sheet-item{
-    border-radius: 10px;
-    background-color: white;
+    background-color: transparent;
     height: 230px;
-    /* position: relative; */
+    border-radius: 43px;
     color: var(--global-black);
-    background-color: white;
-    border: 2px solid var(--global-pink);
     display: grid;
-    transition: .5s;
+    transition: 1s;
+    box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.2);
     grid-template-columns: auto 1fr;
+    position: relative; /* For pseudo-elements to position relative to this */
+    overflow: hidden;
 }
+
+.game-sheet-item::before {
+    content: '';
+    position: absolute;
+    display: none;
+    top: -400%;
+    left: -100%;
+    width: 230%;
+    height:800%;
+    background: linear-gradient(to right, transparent, rgba(255, 67, 119, 1));
+    animation: rotate 6s linear infinite;
+    transform: rotate(0deg);
+    transition: 0.5s ease-in-out;
+    z-index: -1; /* Ensures it's behind the main content */
+  }
+  
+  .game-sheet-item:hover {
+    box-shadow: 
+      0 15px 30px rgba(255, 67, 119, 0.7), /* Pink outer shadow */
+      inset 0 0 20px rgba(255, 67, 119, 0.6), /* Pink inner glow */
+      inset 0 0 40px rgba(255, 67, 119, 0.4); /* Pink inner shadow */
+    transform: scale(1.07); /* Slightly scale the item */
+  }
+  
+  .game-sheet-item:hover::before {
+    display: block;
+    animation: rotate 2.5s linear infinite; /* Speed up rotation on hover */
+    background: linear-gradient(to right, transparent, rgba(255, 67, 119, 1)); /* Brighter pink */
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
 
 .game-sheet-item-body{
     padding: 10px;
@@ -596,10 +649,16 @@ position: relative;
     display: grid;
     text-transform: uppercase;
     font-size: 35px;
+    transition: 1s;
     font-weight: 700;
     color: var(--global-pink);
-    grid-template-columns: 1fr auto;
 }
+
+.game-sheet-item:hover .game-sheet-item-header {
+
+    color: var(--global-black);
+}
+
 .game-sheet-item-header img{
     height: 100%;
     max-height: 45px;
@@ -641,12 +700,16 @@ position: relative;
     opacity: 0; 
 }
 
+.game-sheet-item-description{
+    font-size: 18px;
+}
 
 
 .game-sheet-item-actions {
     justify-self: end;
     display: flex;
-    gap: 20px;
+    gap: 10px;
+    padding-right:20px;
 
 }
 .game-sheet-item-actions a img{
@@ -655,17 +718,6 @@ position: relative;
 
 .game-sheet-item-actions a:hover img{
     opacity: 0.7;
-}
-
-.game-sheet-item:hover{
-    background-color: #FF4377;
-    color: white;
-    border: 2px solid white;
-
-}
-.game-sheet-item:hover .game-sheet-item-header {
-    color: white;
-    transition: .5s;
 }
 
 
@@ -684,7 +736,7 @@ position: relative;
 
 
 .white-section{
-    padding: 100px 0;
+    padding: 80px 0;
 }
 
 .white-section-container{
@@ -697,7 +749,7 @@ position: relative;
 }
 .white-section-container h1{
     color: var(--global-pink);
-
+    font-size: 35px;
 }
 
 .white-section-container img{
@@ -715,7 +767,7 @@ position: relative;
 
 .pink-section{
     color: white;
-    padding: 100px 0;
+    padding: 80px 0;
     background-color: var(--global-pink);
 }
 
@@ -728,6 +780,7 @@ position: relative;
     justify-content: center;
 }
 .pink-section-container h1{
+    font-size: 35px;
 }
 
 .pink-section-container img{
@@ -743,6 +796,10 @@ position: relative;
 .discovery-section .container{
     display: grid;
     gap: 30px;
+}
+.discovery-section h1{
+    font-size: 30px;
+    font-weight: 700;
 }
 
 .action-buttons{
@@ -842,6 +899,7 @@ position: relative;
     width: 100%;
     position: absolute;
     max-width: 700px;
+    border-radius: 30px;
     top: 50%;
     left: 50%;
     margin: 10px;
@@ -855,14 +913,45 @@ position: relative;
 .section-form form input:-webkit-autofill,
 .section-form form input:-internal-autofill-selected,
 .section-form form textarea    {
+    -webkit-appearance: none;  /* Removes system styles */
+    -moz-appearance: none;     /* For Firefox (not necessary in this case) */
+    appearance: none;          /* Modern approach */
+    border-radius: 0;          /* Removes rounded corners */
+    box-shadow: none;          /* Removes default shadows */
+    outline: none;             /* Remove default outline */
     width: 100%;
-    border: 2px solid var(--global-pink);
+    border: 2px solid var(--global-pink) !important;
     resize: none;
     background-color: white;
     color: var(--global-pink)!important;
+    border-radius: 10px;
     padding: 10px 20px;
 }
 
+input:-webkit-autofill, 
+input:-internal-autofill-selected, 
+textarea:-webkit-autofill, 
+textarea:-internal-autofill-selected {
+    background-color: white !important; /* Match your design */
+    color: var(--global-pink) !important;
+    transition: background-color 5000s ease-in-out 0s; /* Ensures background stays */
+}
+
+
+.section-form form input:focus, 
+.section-form form textarea:focus {
+    outline: none; 
+    box-shadow: 0 0 0 2px white; /* Create a subtle border shadow */
+    border: 2px solid var(--global-pink); /* Ensure border changes are visible */
+    background-color: var(--global-pink); 
+    color: white !important;
+}
+
+.section-form form input, 
+.section-form form textarea {
+    width: 100%; 
+    box-sizing: border-box; 
+}
 .section-form form textarea    {
     height: 150px;
 }
@@ -886,11 +975,15 @@ position: relative;
     background-color: var(--global-pink);
     color: white;
     max-width: 350px;
+    border-radius: 10px;
     width: 100%;
     font-size: 28px;
     font-weight: 700;
     padding: 9px 10px;
     border: 2px solid var(--global-pink);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .section-form form button:hover{
@@ -900,16 +993,11 @@ position: relative;
 }
 
 
-
-
 #captcha-section {
     font-size: 22px;
     display: grid;
-    grid-template-columns: auto 1fr;
     align-items: center;
     justify-content: center;
-    background-color: var(--global-pink);
-    padding: 10px;
     font-weight: 700;
     text-align: center;
     max-width: 350px;
@@ -917,43 +1005,6 @@ position: relative;
     font-size: 28px;
     gap: 10px;
     color: white;
-    border: 1px solid white;
-}
-
-#captcha-section input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 30px;
-    height: 30px;
-    margin: 0 10px;
-    padding: 0;
-    border: 1px solid white;
-    cursor: pointer;
-    background-color: var(--global-pink);
-    position: relative;
-}
-
-#captcha-section input[type="checkbox"]:hover {
-    background-color: white;
-}
-
-#captcha-section input[type="checkbox"]:checked {
-    background-color: var(--global-pink);
-}
-
-#captcha-section input[type="checkbox"]:checked::before {
-    content: "✓";
-    font-size: 22px;
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); /* Center the video */
-
-}
-
-#captcha-section label {
-    cursor: pointer;
 }
 
 
@@ -1004,6 +1055,9 @@ position: relative;
 
 
 
+  
+
+
 
 
 .other-sheet{
@@ -1014,19 +1068,56 @@ position: relative;
 
 .other-sheet-item{
     display: grid;
-    border-radius: 10px;
+    border-radius: 43px;
     grid-template-columns: auto 1fr;
     background-color: white;
-    border: 2px solid var(--global-pink);
-    color: var(--global-black)
+    position: relative; /* For pseudo-elements to position relative to this */
+    overflow: hidden;
+    transition: 1s;
+    box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.3);
 }
+.other-sheet-item::before {
+    content: '';
+    position: absolute;
+    display: none;
+    top: -400%;
+    left: -100%;
+    width: 230%;
+    height:800%;
+    background: linear-gradient(to right, transparent, rgba(255, 67, 119, 1));
+    animation: rotate 6s linear infinite;
+    transform: rotate(0deg);
+    transition: 0.5s ease-in-out;
+    z-index: -1; /* Ensures it's behind the main content */
+  }
+
+
+  .other-sheet-item:hover {
+    box-shadow: 
+      0 15px 30px rgba(255, 67, 119, 0.7), /* Pink outer shadow */
+      inset 0 0 20px rgba(255, 67, 119, 0.6), /* Pink inner glow */
+      inset 0 0 40px rgba(255, 67, 119, 0.4); /* Pink inner shadow */
+    transform: scale(1.07); /* Slightly scale the item */
+  }
+  
+  .other-sheet-item:hover::before {
+    display: block;
+    animation: rotate 2.5s linear infinite; /* Speed up rotation on hover */
+    background: linear-gradient(to right, transparent, rgba(255, 67, 119, 1)); /* Brighter pink */
+  }
+  
+
 
 
 .other-sheet-item-logo{
     width: 150px;
     height: 150px;
-    border-radius: 10px;
+    border-radius: 40px;
 }
+
+
+
 
 .other-sheet-item-body{
     padding: 10px;
@@ -1046,6 +1137,7 @@ position: relative;
     width: 100%;
     align-items: flex-end;
     justify-content: end;
+    padding-right: 25px;
     gap: 10px;
 }
 
@@ -1081,10 +1173,10 @@ position: relative;
 
 .slider {
     position: relative;
-    width: 600px;
-    height: 300px;
+    width: 480px;
+    height: 240px;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 30px;
 
   }
   
@@ -1205,6 +1297,26 @@ position: relative;
     transform: translate(1px, 0);
 
 }
+#leftClick::before {
+    content: '';
+    position: absolute;
+    border-width: 30px 45px 30px 0; 
+    border-color: transparent white transparent transparent; 
+    border-style: solid;
+    top: calc(50% - 23px);
+    left: 5%;
+  }
+
+
+  #rightClick::before {
+    content: '';
+    position: absolute;
+    border-width: 30px 0 30px 45px; 
+    border-color: transparent  transparent transparent white; 
+    border-style: solid;
+    top: calc(50% - 23px);
+    left: calc(95% - 50px);
+  }
 
 
 #leftClick{
@@ -1315,8 +1427,37 @@ position: relative;
 
 
 
+@media (max-height: 900px) {
+    .background-image{
+        min-height: 400px;
+    }
+    .start-section{
+        min-height: 400px;
+    }
+    .start-section-container .container .container-title {
+        font-size: 60px;
+    }
+    .white-section{
+        padding: 50px 0;
+    }
+    .pink-section{
+        padding: 50px 0;
+    }
+}
 
 
+@media (max-height: 800px) {
+    .section-form form input, .section-form form input:-webkit-autofill, .section-form form input:-internal-autofill-selected, .section-form form textarea {
+        padding: 5px;
+    }
+    .section-form form textarea{
+        height: 75px;
+    }
+    .section-form form{
+        gap: 10px;
+        padding: 30px;
+    }
+}
 
 
 
@@ -1325,6 +1466,14 @@ position: relative;
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
+    .white-section-container img{
+        width: 400px;
+    }
+    .slider{
+        width: 400px;
+        height: 200px;
+    }
+
 }
 
 
@@ -1339,11 +1488,10 @@ position: relative;
 
 
 @media (max-width: 1200px) {
-    .slider{
-        width: 400px;
-        height: 200px;
-    }
     .pink-section-container{
+        gap:50px;
+    }
+    .white-section-container{
         gap:50px;
     }
     .game-sheet{
@@ -1351,6 +1499,19 @@ position: relative;
     }
     .game-sheet-item-actions a img{
         height: 40px;
+    }
+    .container-about{
+        text-align: left;
+    }
+    .start-section-container .container{
+         gap: 50px;
+    }
+    .white-section-container img{
+        width: 350px;
+    }
+    .slider{
+        width: 350px;
+        height: 175px;
     }
 }
 
@@ -1366,6 +1527,8 @@ position: relative;
     }
     .start-section-container .container{
         grid-template-columns: 1fr;
+        gap: 0px;
+
         place-items: center;
         align-items: center;
 
@@ -1445,7 +1608,8 @@ position: relative;
         font-size: 14px;
     }
     .game-sheet-item-description{
-        font-size: 14px;
+        font-size: 16px;
+        padding: 0 10px;
     }
     .game-sheet-item-header-title{
         font-size: 25px;
@@ -1466,6 +1630,15 @@ position: relative;
         height: auto;
 
     }
+    .game-sheet-item::before {
+        width: 400%;
+        height: 400%;
+        left: -200%;
+        top: -200%
+      }
+    .game-sheet-item-header{
+        text-align: center;
+    }
     .game-sheet-item-content{
         height: 180px;
         margin: 10px;
@@ -1484,6 +1657,8 @@ position: relative;
     }
     .game-sheet-item-actions{
         padding-top:5px ;
+        justify-self: center;
+        padding-right: 0;
     }
     .section-form form{
         padding: 20px;
@@ -1516,6 +1691,19 @@ position: relative;
     }
     .start-section-container .container .container-title{
         min-width: 100%;
+    }
+    .other-sheet-item-body-title{
+        font-size: 20px;
+    }
+    .other-sheet-item-body-action{
+        padding-right: 10px;
+    }
+}
+
+@media (max-width: 440px) {
+    .other-sheet-item-body-action img{
+        width: 76px;
+        height: 25px;
     }
 }
 

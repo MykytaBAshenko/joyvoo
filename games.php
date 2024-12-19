@@ -12,7 +12,7 @@ get_header(); // Include the header
 <section class="game-start-section">
     <div class="background-image"></div>
     <!-- Dynamically include the video source using WordPress functions -->
-    <video class="background-video" autoplay loop muted>
+    <video class="background-video" autoplay loop muted  draggable="false" playsinline>
         <source src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/Video_Website_Grad_2.mp4" type="video/mp4">
     </video>
     <div class="background-layer"></div>
@@ -67,8 +67,8 @@ foreach ($games as $game):
                     // Display videos
                     if (!empty($video_urls)) {
                         foreach ($video_urls as $video) {
-                            echo '<video autoplay loop muted>
-                                <source src="' . esc_url($video) . '" type="video/mp4">
+                            echo '<video autoplay loop muted draggable="false" playsinline>
+                                <source src="' . esc_url($video) . '" type="video/mp4" >
                             </video>';
                         }
                     }
@@ -164,20 +164,10 @@ foreach ($games as $game):
         <div id="popup-carousel-layer">
         </div>
         <div id="popup-carousel-content-shell">
-
             <div id="popup-carousel-content">
-                
-                <!-- <img src="/assets/lb/1.webp" alt="">
-                <img src="/assets/lb/2.webp" alt="">
-                <img src="/assets/lb/3.webp" alt="">
-                <img src="/assets/lb/4.webp" alt="">
-                <video autoplay loop muted>
-                    <source src="./assets/vikings.mp4" type="video/mp4">
-                </video> -->
             </div>
         </div>
-
     </div>
     <?php
-get_footer(); // Include the footer
+get_footer(); 
 ?>
